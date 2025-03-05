@@ -89,3 +89,30 @@ def remove_first(my_list):
         my_list["size"] -= 1
         del elementos[0]
         return elemento
+    
+
+#Laboraorio 5: Funciones de ordenamiento con array list
+
+def default_sort_criteria(element_1, element_2):
+    ordenado = False
+    if element_2 < element_1:
+        ordenado = True
+    return ordenado
+
+def selection_sort(my_list, sort_criteria):
+    tamano = size(my_list)
+
+    for i in range(tamano):
+        menor = get_element(my_list, i)
+        f = 1 + i
+        pos_menor = i
+        while f < tamano:
+            sort_criteria = default_sort_criteria(menor, get_element(my_list, f))
+            if sort_criteria == True:
+                menor = get_element(my_list, f)
+                pos_menor = f
+            f += 1
+        exchange(my_list, i, pos_menor)
+    
+    return my_list
+             
