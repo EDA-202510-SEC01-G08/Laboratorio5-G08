@@ -226,3 +226,27 @@ def insert_element(my_list, element, pos):
                 actual["next"] = sig
                 my_list["size"] += 1
                 return my_list
+            
+
+#Laboraorio 5: Funciones de ordenamiento con Single linked list
+
+def default_sort_criteria(elemento_1, elemento_2):
+    ordenado = False
+    if elemento_2 < elemento_1:
+        ordenado = True
+    return ordenado
+
+def selection_sort(my_list, sort_criteria):
+    tamano = size(my_list)
+
+    for i in range(tamano):
+        menor = get_element(my_list, i)
+        f = 1 + i
+        pos_menor = i
+        while f < tamano:
+            sort_criteria = default_sort_criteria(menor, get_element(my_list, f))
+            if sort_criteria == True:
+                menor = get_element(my_list, f)
+                pos_menor = f
+            f += 1
+        exchange(my_list, i, pos_menor)
