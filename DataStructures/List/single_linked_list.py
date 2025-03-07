@@ -232,7 +232,7 @@ def insert_element(my_list, element, pos):
 
 def default_sort_criteria(elemento_1, elemento_2):
     ordenado = False
-    if elemento_2 < elemento_1:
+    if elemento_1 < elemento_2:
         ordenado = True
     return ordenado
 
@@ -244,7 +244,7 @@ def selection_sort(my_list, sort_criteria):
         f = 1 + i
         pos_menor = i
         while f < tamano:
-            sort_criteria = default_sort_criteria(menor, get_element(my_list, f))
+            sort_criteria = default_sort_criteria(get_element(my_list, f),menor)
             if sort_criteria == True:
                 menor = get_element(my_list, f)
                 pos_menor = f

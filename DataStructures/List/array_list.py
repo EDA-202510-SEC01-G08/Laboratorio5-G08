@@ -94,10 +94,10 @@ def remove_first(my_list):
 #Laboraorio 5: Funciones de ordenamiento con array list
 
 def default_sort_criteria(element_1, element_2):
-    ordenado = False
-    if element_2 < element_1:
-        ordenado = True
-    return ordenado
+    if element_1 < element_2:
+        return True
+    else:
+        return False
 
 def selection_sort(my_list, sort_criteria):
     tamano = size(my_list)
@@ -107,7 +107,7 @@ def selection_sort(my_list, sort_criteria):
         f = 1 + i
         pos_menor = i
         while f < tamano:
-            sort_criteria = default_sort_criteria(menor, get_element(my_list, f))
+            sort_criteria = default_sort_criteria(get_element(my_list, f),menor)
             if sort_criteria == True:
                 menor = get_element(my_list, f)
                 pos_menor = f
@@ -131,6 +131,3 @@ def insertion_sort(my_list, sort_crit):
             f -= 1
 
     return my_list
-
-def shell_sort(my_list, sort_crit):
-    pass
