@@ -30,7 +30,6 @@ import os
 import time
 from DataStructures.List import array_list as al
 from DataStructures.List import single_linked_list as lt
-# TODO Importar las librerías correspondientes para el manejo de pilas y colas
 
 data_dir = os.path.dirname(os.path.realpath('__file__')) + '/Data/GoodReads'
 
@@ -54,7 +53,7 @@ def new_logic(user_data_structure):
         data_structure = al
     else:
         data_structure = lt
-        
+
     catalog = {"books": None,
                "authors": None,
                "tags": None,
@@ -62,15 +61,17 @@ def new_logic(user_data_structure):
 
     # Usamos la estructura seleccionada para inicializar todas las listas
     catalog["books"] = data_structure.new_list()
-    catalog["authors"] = None #TODO: completar la creacion de la lista de autores
-    catalog["tags"] = None #TODO: completar la creacion de la lista de tags
+    # TODO: completar la creacion de la lista de autores
+    catalog["authors"] = None
+    catalog["tags"] = None  # TODO: completar la creacion de la lista de tags
     catalog["book_tags"] = data_structure.new_list()
-    
+
     return catalog
 
 #  -------------------------------------------------------------
 # Funciones para la carga de datos
 #  -------------------------------------------------------------
+
 
 def load_data(catalog):
     """
@@ -80,7 +81,7 @@ def load_data(catalog):
     books, authors = load_books(catalog)
     tag_size = load_tags(catalog)
     book_tag_size = load_books_tags(catalog)
-    return books, authors,tag_size,book_tag_size
+    return books, authors, tag_size, book_tag_size
 
 
 def load_books(catalog):
@@ -111,7 +112,7 @@ def load_books_tags(catalog):
     """
     Carga la información que asocia tags con libros.
     """
-    bookstagsfile = None #TODO: completar la ruta del archivo de BOOKS_TAGS 
+    bookstagsfile = None  # TODO: completar la ruta del archivo de BOOKS_TAGS
     input_file = csv.DictReader(open(bookstagsfile, encoding='utf-8'))
     for booktag in input_file:
         add_book_tag(catalog, booktag)
@@ -147,7 +148,7 @@ def new_book_tag(tag_id, book_id, count):
     Esta estructura crea una relación entre un tag y
     los libros que han sido marcados con dicho tag.
     """
-    book_tag = {'tag_id': tag_id, 'book_id': book_id,'count':count}
+    book_tag = {'tag_id': tag_id, 'book_id': book_id, 'count': count}
     return book_tag
 
 
@@ -164,12 +165,14 @@ def select_sort_algorithm(algo_opt):
             1. Selection Sort
             2. Insertion Sort
             3. Shell Sort
-        
+            4. Merge Sort
+            5. Quick Sort
+
     Returns:
         list: sort_algorithm (sort) la instancia del ordenamiento y
         algo_msg (str) el texto que describe la configuracion del ordenamiento
     """
-    
+
     # respuestas por defecto
     global sort_algorithm
     sort_algorithm = None
@@ -177,16 +180,22 @@ def select_sort_algorithm(algo_opt):
 
     # selecciona el algoritmo de ordenamiento
 
-    #opcion 3: Selection Sort
+    # opcion 1: Selection Sort
     if algo_opt == 1:
-        sort_algorithm = 1 
+        sort_algorithm = 1
         algo_msg = "Seleccionó la configuración - Selection Sort"
 
-    #opcion 4: Insertion Sort
-    #TODO: completar la opcion de Insertion Sort
+    # opcion 2: Insertion Sort
+    # TODO: completar la opcion de Insertion Sort
 
-    #opcion 5: Shell Sort
-    #TODO: completar la opcion de Shell Sort
+    # opcion 3: Shell Sort
+    # TODO: completar la opcion de Shell Sort
+
+    # opcion 4: Merge Sort
+    # TODO: completar la opcion de Merge Sort
+
+    # opcion 5: Quick Sort
+    # TODO: completar la opcion de Quick Sort
 
     else:
         algo_msg = "No seleccionó una configuración válida"
@@ -195,52 +204,58 @@ def select_sort_algorithm(algo_opt):
     return sort_algorithm, algo_msg
 
 
-
 def set_book_sublist(catalog, size):
     """
     Crea una sublista de libros de tamaño size
     """
     books = catalog["books"]
-    catalog["book_sublist"] = data_structure.sub_list(books, 0, size) 
+    catalog["book_sublist"] = data_structure.sub_list(books, 0, size)
     return catalog
 
 #  -------------------------------------------------------------
 # Funciones de consulta
 #  -------------------------------------------------------------
 
+
 def get_books_by_author(catalog, author_name):
     """
     Retrona los libros de un autor
     """
-    pos_author =pos_author = data_structure.is_present(catalog['authors'], author_name,compare_authors)
+    pos_author = pos_author = data_structure.is_present(
+        catalog['authors'], author_name, compare_authors)
     if pos_author > 0:
         author = data_structure.get_element(catalog['authors'], pos_author)
         return author
     return None
 
+
 def get_book_info_by_book_id(catalog, book_id):
     """
     Retorna toda la informacion que se tenga almacenada de un libro segun su titulo.
     """
-    pos_book =  data_structure.is_present(catalog['books'], book_id, compare_book_ids)
+    pos_book = data_structure.is_present(
+        catalog['books'], book_id, compare_book_ids)
     if pos_book >= 0:
         book = data_structure.get_element(catalog['books'], pos_book)
         return book
     return None
+
 
 def count_books_by_tag(catalog, tag_name):
     """
     Retorna el número de libros que fueron etiquetados con el tag_name especificado.
     """
     # Buscar la posición del tag en la lista de tags usando compare_tag_names
-    pos_tag = data_structure.is_present(catalog['tags'], tag_name, compare_tag_names)
-    
+    pos_tag = data_structure.is_present(
+        catalog['tags'], tag_name, compare_tag_names)
+
     # Si el tag existe
     if pos_tag >= 0:
         # Obtener el tag completo (tag_id y tag_name)
-        tag = data_structure.get_element(catalog['tags'], pos_tag)  # Ajustar para índice 0
+        tag = data_structure.get_element(
+            catalog['tags'], pos_tag)  # Ajustar para índice 0
         tag_id = tag['tag_id']
-        
+
         # Inicializar contador de libros y una lista para IDs de libros únicos
         total_processed = 0  # Contador para el total de book_tags procesados
 
@@ -258,17 +273,19 @@ def count_books_by_tag(catalog, tag_name):
 # Funciones utilizadas para obtener el tamaño de las listas
 #  -------------------------------------------------------------
 
+
 def book_size(catalog):
-    #TODO: completar la funcion para obtener el tamaño de la lista de libros
+    # TODO: completar la funcion para obtener el tamaño de la lista de libros
     pass
 
 
 def author_size(catalog):
-    #TODO: completar la funcion para obtener el tamaño de la lista de autores
+    # TODO: completar la funcion para obtener el tamaño de la lista de autores
     pass
 
+
 def tag_size(catalog):
-    #TODO: completar la funcion para obtener el tamaño de la lista de tags
+    # TODO: completar la funcion para obtener el tamaño de la lista de tags
     pass
 
 
@@ -278,6 +295,8 @@ def book_tag_size(catalog):
 #  -------------------------------------------------------------
 # Funciones utilizadas para comparar elementos dentro de una lista
 #  -------------------------------------------------------------
+
+
 def compare_authors(author_name1, author):
     if author_name1.lower() == author['name'].lower():
         return 0
@@ -293,6 +312,7 @@ def compare_tag_names(name, tag):
         return 1
     return -1
 
+
 def compare_book_ids(id, book):
     if id == book["goodreads_book_id"]:
         return 0
@@ -304,42 +324,51 @@ def compare_book_ids(id, book):
 #  -----------------------------------------------
 # funciones para comparar elementos dentro de algoritmos de ordenamientos
 #  -----------------------------------------------
+
+
 def eval_ratings(book1, book2):
-    #TODO: completar la función para comparar dos libros por su rating promedio, el libro 1 debe ser mayor al 2.
+    # TODO: completar la función para comparar dos libros por su rating promedio, el libro 1 debe ser mayor al 2.
     pass
 
 #  -----------------------------------------------
 # Funciones de ordenamiento
 #  -----------------------------------------------
 
+
 def sort_books(catalog):
-    
+
     sorted_books = catalog["book_sublist"]
     start_time = get_time()
 
-    #TODO: completar las opciones para selection_sort, insertion_sort y shell_sort
-    
+    # TODO: completar las opciones para selection_sort, insertion_sort, shell_sort, merge_sort y quick_sort
+
     if sort_algorithm == 1:
-        sorted_books_s = None  #TODO: completar la llamada a selection_sort
+        sorted_books_s = None  # TODO: completar la llamada a selection_sort
         pass
-       
+
     elif sort_algorithm == 2:
-        #TODO: completar la llamada a insertion_sort
+        # TODO: completar la llamada a insertion_sort
         pass
-    
+
     elif sort_algorithm == 3:
-        #TODO: completar la llamada a shell_sort
+        # TODO: completar la llamada a shell_sort
         pass
-    
+
+    elif sort_algorithm == 4:
+        # TODO: completar la llamada a merge_sort
+        pass
+
+    elif sort_algorithm == 5:
+        # TODO: completar la llamada a quick_sort
+        pass
+
     end_time = get_time()
     delta = delta_time(start_time, end_time)
 
+    return sorted_books_s, delta
 
 
-    return sorted_books_s, delta 
-
-    
-#  -----------------------------------------------   
+#  -----------------------------------------------
 #  Funciones para agregar informacion al catalogo
 #  -----------------------------------------------
 
@@ -362,7 +391,8 @@ def add_book_author(catalog, author_name, book):
     a los libros de dicho autor
     """
     authors = catalog['authors']
-    pos_author = data_structure.is_present(authors, author_name,compare_authors)
+    pos_author = data_structure.is_present(
+        authors, author_name, compare_authors)
     if pos_author > 0:
         author = data_structure.get_element(authors, pos_author)
     else:
@@ -385,11 +415,12 @@ def add_book_tag(catalog, book_tag):
     """
     Adiciona un tag a la lista de tags
     """
-    t = new_book_tag(book_tag['tag_id'], book_tag['goodreads_book_id'], book_tag['count'])
+    t = new_book_tag(book_tag['tag_id'],
+                     book_tag['goodreads_book_id'], book_tag['count'])
     data_structure.add_last(catalog['book_tags'], t)
     return catalog
 
-#  -----------------------------------------------   
+#  -----------------------------------------------
 #  Funciones para toma de tiempos
 #  -----------------------------------------------
 

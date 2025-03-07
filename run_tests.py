@@ -16,7 +16,9 @@ def print_test_options():
     print("     2.B Lista encadenadas")
     print("3. Colas (Queues)")
     print("4. Pilas (Stacks)")
-    print("5. Métodos de Ordenamiento Iterativos")
+    print("5. Métodos de Ordenamiento")
+    print("     5.A Ordenamientos Iterativos")
+    print("     5.B Ordenamientos Recursivos")
     print("0. Salir")
 
 
@@ -38,11 +40,15 @@ def execute_list_tests(input_option="2"):
     for test_name in tests_names:
         execute_pytest_test(test_name)
 
-def execute_sorting_tests():
+
+def execute_sorting_tests(input_option="5"):
     tests_names = []
-    tests_names.append("test_iterative_sort_array_list")
-    tests_names.append("test_iterative_sort_single_linked_list")
-    
+    if input_option.lower() == "5.a" or input_option == "5":
+        tests_names.append("test_iterative_sort_array_list")
+        tests_names.append("test_iterative_sort_single_linked_list")
+    if input_option.lower() == "5.b" or input_option == "5":
+        tests_names.append("test_recursive_sort_array_list")
+        tests_names.append("test_recursive_sort_single_linked_list")
     for test_name in tests_names:
         execute_pytest_test(test_name)
 
@@ -79,7 +85,7 @@ if __name__ == "__main__":
     if input_option == "4":
         execute_stack_tests()
         runned = True
-    
+
     if input_option.startswith("5"):
         execute_sorting_tests()
         runned = True
