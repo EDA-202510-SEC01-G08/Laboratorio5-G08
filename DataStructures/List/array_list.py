@@ -107,8 +107,8 @@ def selection_sort(my_list, sort_criteria):
         f = 1 + i
         pos_menor = i
         while f < tamano:
-            sort_criteria = default_sort_criteria(get_element(my_list, f),menor)
-            if sort_criteria == True:
+            sort = sort_criteria(get_element(my_list, f),menor)
+            if sort == True:
                 menor = get_element(my_list, f)
                 pos_menor = f
             f += 1
@@ -122,8 +122,8 @@ def insertion_sort(my_list, sort_crit):
         f = i - 1
         x = i
         while f > -1:
-            sort_crit = default_sort_criteria(get_element(my_list, x), get_element(my_list,f))
-            if sort_crit == True:
+            sort = sort_crit(get_element(my_list, x), get_element(my_list,f))
+            if sort == True:
                 exchange(my_list, x, f)
                 x -= 1
             else:
