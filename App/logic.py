@@ -61,9 +61,9 @@ def new_logic(user_data_structure):
 
     # Usamos la estructura seleccionada para inicializar todas las listas
     catalog["books"] = data_structure.new_list()
-    # TODO: completar la creacion de la lista de autores
-    catalog["authors"] = None
-    catalog["tags"] = None  # TODO: completar la creacion de la lista de tags
+    # TODO hecho
+    catalog["authors"] = data_structure.new_list()
+    catalog["tags"] = data_structure.new_list()  # TODO hecho
     catalog["book_tags"] = data_structure.new_list()
 
     return catalog
@@ -84,7 +84,7 @@ def load_data(catalog):
     return books, authors, tag_size, book_tag_size
 
 
-def load_books(catalog):
+def  load_books(catalog):
     """
     Carga los libros del archivo.  Por cada libro se toman sus autores y por
     cada uno de ellos, se crea en la lista de autores, a dicho autor y una
@@ -186,16 +186,29 @@ def select_sort_algorithm(algo_opt):
         algo_msg = "Seleccionó la configuración - Selection Sort"
 
     # opcion 2: Insertion Sort
-    # TODO: completar la opcion de Insertion Sort
+    # TODO: hecho
+    elif algo_opt == 2:
+        sort_algorithm = 2
+        algo_msg = "Seleccionó la configuración - Insertion Sort"
+
 
     # opcion 3: Shell Sort
-    # TODO: completar la opcion de Shell Sort
+    # TODO: Hecho
+    elif algo_opt == 3:
+        sort_algorithm = 3
+        algo_msg = "Seleccionó la configuración - Shell Sort"
 
     # opcion 4: Merge Sort
-    # TODO: completar la opcion de Merge Sort
+    # TODO: Hecho
+    elif algo_opt == 4:
+        sort_algorithm = 4
+        algo_msg = "Seleccionó la configuración - Merge Sort"
 
     # opcion 5: Quick Sort
-    # TODO: completar la opcion de Quick Sort
+    # TODO: hecho
+    elif algo_opt == 5:
+        sort_algorithm = 5
+        algo_msg = "Seleccionó la configuración - Quick Sort"
 
     else:
         algo_msg = "No seleccionó una configuración válida"
@@ -275,18 +288,18 @@ def count_books_by_tag(catalog, tag_name):
 
 
 def book_size(catalog):
-    # TODO: completar la funcion para obtener el tamaño de la lista de libros
-    pass
+    # TODO: hecho
+    return data_structure.size(catalog["books"])
 
 
 def author_size(catalog):
-    # TODO: completar la funcion para obtener el tamaño de la lista de autores
-    pass
+    # TODO: hecho
+    return data_structure.size(catalog["authors"])
 
 
 def tag_size(catalog):
-    # TODO: completar la funcion para obtener el tamaño de la lista de tags
-    pass
+    # TODO: hecho
+    return data_structure.size(catalog["tags"])
 
 
 def book_tag_size(catalog):
@@ -327,8 +340,11 @@ def compare_book_ids(id, book):
 
 
 def eval_ratings(book1, book2):
-    # TODO: completar la función para comparar dos libros por su rating promedio, el libro 1 debe ser mayor al 2.
-    pass
+    # TODO: Hecho
+    if book1["average_rating"] > book2["average_rating"]:
+        return True
+    elif book2["average_rating"] >= book2["average_rating"]:
+        return False
 
 #  -----------------------------------------------
 # Funciones de ordenamiento
@@ -343,23 +359,28 @@ def sort_books(catalog):
     # TODO: completar las opciones para selection_sort, insertion_sort, shell_sort, merge_sort y quick_sort
 
     if sort_algorithm == 1:
-        sorted_books_s = None  # TODO: completar la llamada a selection_sort
-        pass
+        # TODO: completar la llamada a selection_sort
+        sorted_books_s = data_structure.selection_sort(sorted_books, ...) 
+        return sorted_books_s
 
     elif sort_algorithm == 2:
         # TODO: completar la llamada a insertion_sort
-        pass
+        sorted_books_i = data_structure.insertion_sort(sorted_books, ...)
+        return sorted_books_i
 
     elif sort_algorithm == 3:
         # TODO: completar la llamada a shell_sort
-        pass
+        sorted_books_sh = data_structure.shell_sort(sorted_books, ...)
+        return sorted_books_sh
 
     elif sort_algorithm == 4:
         # TODO: completar la llamada a merge_sort
+        # Para poder hacerla necesitamos la función ya hecha en las listas
         pass
 
     elif sort_algorithm == 5:
         # TODO: completar la llamada a quick_sort
+        # Para poder hacerla necesitamos la función ya hecha en las listas
         pass
 
     end_time = get_time()
