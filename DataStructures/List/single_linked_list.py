@@ -266,3 +266,22 @@ def insertion_sort(my_list, sort_crit):
             f -= 1
 
     return my_list
+
+def shell_sort(my_list, sort_crit):
+    n = size(my_list)
+    gap = n // 2 #????
+
+    while gap > 0:
+
+        for i in range(gap, n):
+            elem = get_element(my_list, i)
+            j = i
+
+            while j >= gap and sort_crit(elem, get_element(my_list, j - gap)):
+
+                exchange(my_list, j, j-gap)
+                j -= gap
+
+        gap = gap // 2
+
+    return my_list

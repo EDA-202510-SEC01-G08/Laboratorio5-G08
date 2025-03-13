@@ -137,7 +137,7 @@ def insertion_sort(my_list, sort_crit):
 
 def shell_sort(my_list, sort_crit):
     n = size(my_list)
-    gap = n // 2
+    gap = n // 2 #?????
 
     while gap > 0:
 
