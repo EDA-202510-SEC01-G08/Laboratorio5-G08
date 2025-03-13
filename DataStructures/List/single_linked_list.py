@@ -308,3 +308,30 @@ def shell_sort(my_list, sort_crit):
 
     return result
 
+def partition(arr, low, high):
+
+    pivot = get_element(arr,high)
+
+    i = low - 1
+
+    for j in range(low, high):
+        if get_element(arr,j) < pivot:
+            i += 1
+            exchange(arr, i, j)
+    
+    exchange(arr, i + 1, high)
+    return i + 1
+
+
+
+def quickSort(arr, low, high, sort_crit):
+    if sort_crit(low, high) == 2:
+        
+        pi = partition(arr, low, high)
+        
+        quickSort(arr, low, pi - 1,sort_crit)
+        quickSort(arr, pi + 1, high,sort_crit)
+
+lista = {"elements": [1,23,5,3,74,5,6,75,54,5], "size": 10}
+quickSort(lista,0,size(lista),default_sort_criteria)
+print(lista)
