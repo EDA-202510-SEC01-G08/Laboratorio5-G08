@@ -332,6 +332,3 @@ def quickSort(arr, low, high, sort_crit):
         quickSort(arr, low, pi - 1,sort_crit)
         quickSort(arr, pi + 1, high,sort_crit)
 
-lista = {"elements": [1,23,5,3,74,5,6,75,54,5], "size": 10}
-quickSort(lista,0,size(lista),default_sort_criteria)
-print(lista)
