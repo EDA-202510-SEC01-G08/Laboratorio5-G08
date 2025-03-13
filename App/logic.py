@@ -353,7 +353,7 @@ def eval_ratings(book1, book2):
 
 def sort_books(catalog):
 
-    sorted_books = catalog["books"]
+    sorted_books = catalog["book_sublist"]
     start_time = get_time()
 
     # TODO: completar las opciones para selection_sort, insertion_sort, shell_sort, merge_sort y quick_sort
