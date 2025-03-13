@@ -237,52 +237,74 @@ def default_sort_criteria(elemento_1, elemento_2):
     return ordenado
 
 def selection_sort(my_list, sort_criteria):
-    tamano = size(my_list)
 
-    for i in range(tamano):
-        menor = get_element(my_list, i)
-        f = 1 + i
-        pos_menor = i
-        while f < tamano:
-            sort = sort_criteria(get_element(my_list, f),menor)
-            if sort == True:
-                menor = get_element(my_list, f)
-                pos_menor = f
-            f += 1
-        exchange(my_list, i, pos_menor)
-    return my_list
+    tamano = size(my_list)
+    if tamano <= 1:
+        result = my_list
+
+    else:
+        for i in range(tamano):
+            menor = get_element(my_list, i)
+            f = 1 + i
+            pos_menor = i
+            while f < tamano:
+                sort = sort_criteria(get_element(my_list, f),menor)
+                if sort == True:
+                    menor = get_element(my_list, f)
+                    pos_menor = f
+                f += 1
+            exchange(my_list, i, pos_menor)
+
+        result = my_list
+
+    return result
 
 def insertion_sort(my_list, sort_crit):
     tamano = size(my_list)
-    for i in range(tamano):
-        f = i - 1
-        x = i
-        while f > -1:
-            sort = sort_crit(get_element(my_list, x), get_element(my_list,f))
-            if sort == True:
-                exchange(my_list, x, f)
-                x -= 1
-            else:
-                f = -1
-            f -= 1
 
-    return my_list
+    if tamano <= 1:
+        result = my_list
+    
+    else:
+        for i in range(tamano):
+            f = i - 1
+            x = i
+            while f > -1:
+                sort = sort_crit(get_element(my_list, x), get_element(my_list,f))
+                if sort == True:
+                    exchange(my_list, x, f)
+                    x -= 1
+                else:
+                    f = -1
+                f -= 1
+        result = my_list
+
+    return result
 
 def shell_sort(my_list, sort_crit):
     n = size(my_list)
-    gap = n // 2 #????
 
-    while gap > 0:
+    if n <= 1:
+        result = my_list
 
-        for i in range(gap, n):
-            elem = get_element(my_list, i)
-            j = i
+    else:
 
-            while j >= gap and sort_crit(elem, get_element(my_list, j - gap)):
+        gap = n // 2 #????
 
-                exchange(my_list, j, j-gap)
-                j -= gap
+        while gap > 0:
 
-        gap = gap // 2
+            for i in range(gap, n):
+                elem = get_element(my_list, i)
+                j = i
 
-    return my_list
+                while j >= gap and sort_crit(elem, get_element(my_list, j - gap)):
+
+                    exchange(my_list, j, j-gap)
+                    j -= gap
+
+            gap = gap // 2
+
+        result = my_list
+
+    return result
+
