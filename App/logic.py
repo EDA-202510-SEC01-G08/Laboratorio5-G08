@@ -112,7 +112,7 @@ def load_books_tags(catalog):
     """
     Carga la información que asocia tags con libros.
     """
-    bookstagsfile = None  # TODO: completar la ruta del archivo de BOOKS_TAGS
+    bookstagsfile = data_dir + '/book_tags.csv'  # TODO: completar la ruta del archivo de BOOKS_TAGS
     input_file = csv.DictReader(open(bookstagsfile, encoding='utf-8'))
     for booktag in input_file:
         add_book_tag(catalog, booktag)
@@ -353,25 +353,23 @@ def eval_ratings(book1, book2):
 
 def sort_books(catalog):
 
-    sorted_books = catalog["book_sublist"]
+    sorted_books = catalog["books"]
     start_time = get_time()
 
     # TODO: completar las opciones para selection_sort, insertion_sort, shell_sort, merge_sort y quick_sort
 
     if sort_algorithm == 1:
         # TODO: completar la llamada a selection_sort
-        sorted_books_s = data_structure.selection_sort(sorted_books, sort_crit=eval_ratings) 
-        return sorted_books_s
+        sorted_books_s = data_structure.selection_sort(sorted_books, sort_criteria=eval_ratings) 
+        
 
     elif sort_algorithm == 2:
         # TODO: completar la llamada a insertion_sort
-        sorted_books_i = data_structure.insertion_sort(sorted_books, sort_crit=eval_ratings)
-        return sorted_books_i
+        sorted_books_s = data_structure.insertion_sort(sorted_books, sort_crit=eval_ratings)
 
     elif sort_algorithm == 3:
         # TODO: completar la llamada a shell_sort
-        sorted_books_sh = data_structure.shell_sort(sorted_books, sort_crit=eval_ratings)
-        return sorted_books_sh
+        sorted_books_s = data_structure.shell_sort(sorted_books, sort_crit=eval_ratings)
 
     elif sort_algorithm == 4:
         # TODO: completar la llamada a merge_sort
