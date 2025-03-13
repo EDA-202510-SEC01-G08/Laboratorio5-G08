@@ -360,17 +360,17 @@ def sort_books(catalog):
 
     if sort_algorithm == 1:
         # TODO: completar la llamada a selection_sort
-        sorted_books_s = data_structure.selection_sort(sorted_books, ...) 
+        sorted_books_s = data_structure.selection_sort(sorted_books, sort_crit=eval_ratings) 
         return sorted_books_s
 
     elif sort_algorithm == 2:
         # TODO: completar la llamada a insertion_sort
-        sorted_books_i = data_structure.insertion_sort(sorted_books, ...)
+        sorted_books_i = data_structure.insertion_sort(sorted_books, sort_crit=eval_ratings)
         return sorted_books_i
 
     elif sort_algorithm == 3:
         # TODO: completar la llamada a shell_sort
-        sorted_books_sh = data_structure.shell_sort(sorted_books, ...)
+        sorted_books_sh = data_structure.shell_sort(sorted_books, sort_crit=eval_ratings)
         return sorted_books_sh
 
     elif sort_algorithm == 4:
