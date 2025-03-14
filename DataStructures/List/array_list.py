@@ -230,27 +230,26 @@ def merge(lista1, lista2, sort_crit):
 
 lista = {"elements": [1, 23, 5, 32, 4, 35, 45, 43], "size": 8}
 
+def quick_sort(arr, sort_crit, low=0, high=None):
+    if high is None:  # First call, set high to the last index
+        high = arr["size"] - 1
+
+    if low < high:  # Ensure valid indices
+        pi = partition(arr, low, high)
+        
+        quick_sort(arr, sort_crit, low, pi - 1)
+        quick_sort(arr, sort_crit, pi + 1, high)
+
 def partition(arr, low, high):
-
-    pivot = get_element(arr,high)
-
+    pivot = get_element(arr, high)
     i = low - 1
 
     for j in range(low, high):
-        if get_element(arr,j) < pivot:
+        if get_element(arr, j) < pivot:
             i += 1
             exchange(arr, i, j)
     
     exchange(arr, i + 1, high)
     return i + 1
 
-
-
-def quick_sort(arr, low, high, sort_crit):
-    if sort_crit(low, high) == 2:
-        
-        pi = partition(arr, low, high)
-        
-        quick_sort(arr, low, pi - 1,sort_crit)
-        quick_sort(arr, pi + 1, high,sort_crit)
 

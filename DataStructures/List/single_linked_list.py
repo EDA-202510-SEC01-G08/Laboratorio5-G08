@@ -358,12 +358,28 @@ def merge(lista1, lista2, sort_crit):
 
     return lista 
 
-lista = new_list()
+def quick_sort(arr, sort_crit, low=0, high=None):
+    if high is None:
+        high = arr["size"] - 1
 
-add_last(lista, 3)
-add_last(lista, 4)
-add_last(lista, 3)
-add_last(lista, 4)
-add_last(lista, 3)
-add_last(lista, 4)
-print(merge_sort(lista, default_sort_criteria))
+    if low < high:  
+        pi = partition(arr, low, high)
+        
+        quick_sort(arr, sort_crit, low, pi - 1)
+        quick_sort(arr, sort_crit, pi + 1, high)
+
+def partition(arr, low, high):
+    pivot = get_element(arr, high)
+    i = low - 1
+
+    for j in range(low, high):
+        if get_element(arr, j) < pivot:
+            i += 1
+            exchange(arr, i, j)
+    
+    exchange(arr, i + 1, high)
+    return i + 1
+
+
+
+ 
