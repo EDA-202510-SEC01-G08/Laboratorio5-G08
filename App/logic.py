@@ -376,13 +376,12 @@ def sort_books(catalog):
 
     elif sort_algorithm == 4:
         # TODO: completar la llamada a merge_sort
-        # Para poder hacerla necesitamos la función ya hecha en las listas
-        pass
+        sorted_books_s = data_structure.merge_sort(sorted_books, sort_crit=eval_ratings)
 
     elif sort_algorithm == 5:
         # TODO: completar la llamada a quick_sort
-        # Para poder hacerla necesitamos la función ya hecha en las listas
-        pass
+        sorted_books_s = data_structure.quick_sort(sorted_books, sort_crit=eval_ratings)
+        
 
     end_time = get_time()
     delta = delta_time(start_time, end_time)
