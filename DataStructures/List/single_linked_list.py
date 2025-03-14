@@ -380,6 +380,6 @@ def partition(arr, low, high):
     exchange(arr, i + 1, high)
     return i + 1
 
-lista = new_list()
+
 
  

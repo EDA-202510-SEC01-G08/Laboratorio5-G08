@@ -252,8 +252,4 @@ def partition(arr, low, high):
     exchange(arr, i + 1, high)
     return i + 1
 
-lista = {"elements" : [1,23,5,32,4,35,45,43], "size": 8}
 
-quick_sort(lista, default_sort_criteria)
-
-print(lista)
