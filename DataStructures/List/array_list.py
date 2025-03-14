@@ -64,13 +64,19 @@ def exchange(my_list, pos1, pos2):
     return my_list
 
 def sub_list(my_list, start, num_elements):
-    sublist = new_list()
-    if start > num_elements:
-        raise Exception('IndexError: list index out of range')
-    else: 
-        for i in range(start, num_elements):
-            add_last(sublist, my_list["elements"][i])
-        return sublist
+
+    if start < 0 or start >= my_list["size"]:
+
+        raise IndexError("Start index is out of range")
+
+    if num_elements < 0:
+        raise ValueError("Number of elements cannot be negative")
+
+    end = min(start + num_elements, my_list["size"])
+
+    sublist = {"elements": my_list["elements"][start:end], "size": end - start}
+
+    return sublist
     
 
 
@@ -99,14 +105,11 @@ def remove_first(my_list):
 #Laboraorio 5: Funciones de ordenamiento con array list
 
 def default_sort_criteria(element_1, element_2):
-    if element_1 > element_2:
-        return 1
-    
-    elif element_1 < element_2:
-        return 2
-    
-    else:
-        return 3
+
+   is_sorted = False
+   if element_1 < element_2:
+      is_sorted = True
+   return is_sorted
 
 def selection_sort(my_list, sort_criteria):
     tamano = size(my_list)
@@ -186,54 +189,46 @@ def shell_sort(my_list, sort_crit):
 
 
 def merge_sort(my_list, sort_crit):
-
-    if size(my_list) == 0 or size(my_list) == 1:
-        return my_list
-
     n = size(my_list)
-    m = n // 2
 
-    sub1 = sub_list(my_list, 0, m)
-    sub1 = merge_sort(sub1, sort_crit)
+    if n <= 1:
+        return my_list  
 
-    sub2 = new_list()
-    if n % 2 != 0:
-        sub2 = sub_list(my_list, m, m+1)
+    mid = n // 2
 
+    if n % 2 == 0:
+        l = merge_sort(sub_list(my_list, 0, mid), sort_crit)
+        r = merge_sort(sub_list(my_list, mid, mid ), sort_crit)
     else:
-        sub2 = sub_list(my_list, m, m)
+        l = merge_sort(sub_list(my_list, 0, mid), sort_crit)
+        r = merge_sort(sub_list(my_list, mid, mid + 1), sort_crit)
 
-    sub2 = merge_sort(sub2, sort_crit)
-
-    return merge(sub1,sub2, sort_crit)
+    return merge(l, r, sort_crit)
 
 def merge(lista1, lista2, sort_crit):
-    lista = new_list
+    lista = new_list()  
+    i = 0
+    j = 0
 
-    i = 0 
-    j = 0 
-
-    while i < size(lista1) or j < size(lista2):
-
-        sort = sort_crit(get_element(lista1, i), get_element(lista2, j))
-
-        if sort == 1:
-            add_last(lista, get_element(lista2, j))
-          
-
-        elif sort == 2:
+    while i < size(lista1) and j < size(lista2):
+        if sort_crit(get_element(lista1, i), get_element(lista2, j)):
             add_last(lista, get_element(lista1, i))
-            
+            i += 1
         else:
-            add_last(lista, get_element(lista1, i))
-  
+            add_last(lista, get_element(lista2, j))
+            j += 1
 
-        
+    while i < size(lista1):
+        add_last(lista, get_element(lista1, i))
+        i += 1
 
-    return lista
+    while j < size(lista2):
+        add_last(lista, get_element(lista2, j))
+        j += 1
 
+    return lista 
 
-
+lista = {"elements": [1, 23, 5, 32, 4, 35, 45, 43], "size": 8}
 
 def partition(arr, low, high):
 

@@ -45,6 +45,7 @@ def add_last(my_list, element):
     new_node = {"info": element,
                 "next": None,
                 }
+    
     if my_list["size"] == 0:
         my_list["first"] = new_node
         my_list["last"] = new_node
@@ -154,35 +155,41 @@ def remove_last(my_list):
             actual["next"] = None
             my_list["last"] = actual
             my_list["size"] -= 1
-            return last["info"]
+def sub_list(my_list, start, num_elements):
 
-def sub_list(my_list, start, end):
-    if start < 0 or start > my_list["size"] -1 or end < 0 or end > my_list["size"] -1 or start > end:
-        return None
-    
-    else: 
-        count = 0
-        actual = my_list["first"]
-        while actual != None and count != start:
-            count += 1
-            actual = actual["next"]
+    if start < 0 or start >= my_list["size"]:
+        raise IndexError("Start index out of range")
 
-        new_list = {"first": None,
-                "last": None, 
-                "size": 0,
-                }
-                
-        while actual != None and count != end:
-            if my_list["size"] == 0:
-                    my_list["first"] = actual
-                    my_list["last"] = actual
-            else:
-                my_list["last"]["next"] = actual
-                my_list["last"] = actual
-            my_list["size"] += 1
-            actual = actual["next"]
-            count += 1
-        return new_list
+    if num_elements <= 0:
+        return new_list() 
+
+    lista = new_list()
+
+    current = my_list["first"]
+    index = 0
+
+    while current is not None and index < start:
+        current = current["next"]
+        index += 1
+
+    count = 0
+    while current is not None and count < num_elements:
+        new_node = {"info": current["info"], "next": None}  # Create a new independent node
+
+        if lista["first"] is None:
+            lista["first"] = new_node
+            lista["last"] = new_node
+        else:
+            lista["last"]["next"] = new_node
+            lista["last"] = new_node
+
+        lista["size"] += 1
+        current = current["next"]
+        count += 1
+
+    return lista
+
+
 
 def insert_element(my_list, element, pos):
     if pos < 0 or pos > size(my_list):
@@ -230,11 +237,12 @@ def insert_element(my_list, element, pos):
 
 #Laboraorio 5: Funciones de ordenamiento con Single linked list
 
-def default_sort_criteria(elemento_1, elemento_2):
-    ordenado = False
-    if elemento_1 < elemento_2:
-        ordenado = True
-    return ordenado
+def default_sort_criteria(element_1, element_2):
+
+   is_sorted = False
+   if element_1 < element_2:
+      is_sorted = True
+   return is_sorted
 
 def selection_sort(my_list, sort_criteria):
 
@@ -308,27 +316,54 @@ def shell_sort(my_list, sort_crit):
 
     return result
 
-def partition(arr, low, high):
 
-    pivot = get_element(arr,high)
+def merge_sort(my_list, sort_crit):
+    n = size(my_list)
 
-    i = low - 1
+    if n <= 1:
+        return my_list  
 
-    for j in range(low, high):
-        if get_element(arr,j) < pivot:
+    mid = n // 2
+
+    if n % 2 == 0:
+        l = merge_sort(sub_list(my_list, 0, mid), sort_crit)
+        r = merge_sort(sub_list(my_list, mid, mid ), sort_crit)
+    else:
+        l = merge_sort(sub_list(my_list, 0, mid), sort_crit)
+        r = merge_sort(sub_list(my_list, mid, mid + 1), sort_crit)
+
+    return merge(l, r, sort_crit)
+
+def merge(lista1, lista2, sort_crit):
+    lista = new_list()  
+    i = 0
+    j = 0
+
+    while i < size(lista1) and j < size(lista2):
+
+        if sort_crit(get_element(lista1, i), get_element(lista2, j)):
+            add_last(lista, get_element(lista1, i))
             i += 1
-            exchange(arr, i, j)
-    
-    exchange(arr, i + 1, high)
-    return i + 1
+        else:
+            add_last(lista, get_element(lista2, j))
+            j += 1
 
+    while i < size(lista1):
+        add_last(lista, get_element(lista1, i))
+        i += 1
 
+    while j < size(lista2):
+        add_last(lista, get_element(lista2, j))
+        j += 1
 
-def quickSort(arr, low, high, sort_crit):
-    if sort_crit(low, high) == 2:
-        
-        pi = partition(arr, low, high)
-        
-        quickSort(arr, low, pi - 1,sort_crit)
-        quickSort(arr, pi + 1, high,sort_crit)
+    return lista 
 
+lista = new_list()
+
+add_last(lista, 3)
+add_last(lista, 4)
+add_last(lista, 3)
+add_last(lista, 4)
+add_last(lista, 3)
+add_last(lista, 4)
+print(merge_sort(lista, default_sort_criteria))

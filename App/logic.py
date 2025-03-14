@@ -340,11 +340,14 @@ def compare_book_ids(id, book):
 
 
 def eval_ratings(book1, book2):
-    # TODO: Hecho
-    if book1["average_rating"] > book2["average_rating"]:
-        return True
-    elif book2["average_rating"] >= book2["average_rating"]:
-        return False
+  
+   is_sorted = False
+   if float(book1["average_rating"]) < float(book2["average_rating"]):
+      is_sorted = True
+   return is_sorted
+
+    
+
 
 #  -----------------------------------------------
 # Funciones de ordenamiento
