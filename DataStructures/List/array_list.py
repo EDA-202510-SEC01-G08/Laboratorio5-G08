@@ -246,11 +246,11 @@ def partition(arr, low, high):
 
 
 
-def quickSort(arr, low, high, sort_crit):
+def quick_sort(arr, low, high, sort_crit):
     if sort_crit(low, high) == 2:
         
         pi = partition(arr, low, high)
         
-        quickSort(arr, low, pi - 1,sort_crit)
-        quickSort(arr, pi + 1, high,sort_crit)
+        quick_sort(arr, low, pi - 1,sort_crit)
+        quick_sort(arr, pi + 1, high,sort_crit)
 
